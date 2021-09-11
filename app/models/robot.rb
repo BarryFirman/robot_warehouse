@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class Robot < ApplicationRecord
   has_one :position, as: :positionable
 
