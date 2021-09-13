@@ -15,12 +15,10 @@ class Crate < ApplicationRecord
                               .where('current_position[1] = ?', y_pos)
                               .where(positionable_type: 'Crate')
 
-
     Crate.find(crate_positions[0].positionable_id) if crate_positions.count == 1
   end
 
   def grabbed?
     Robot.first.crate_id == id
   end
-
 end

@@ -12,28 +12,26 @@ class Robot < ApplicationRecord
   ACTION_COMMANDS = %w[G D].freeze
 
   def self.present?
-    Robot.count > 0
+    Robot.count.positive?
   end
 
   def control(commands)
     return return_status(success: false, messages: ['invalid command detected']) unless valid_commands commands
 
     commands.split(' ').each do |command|
-      if move_command?(command)
-        return return_position(success: false) unless move(command)
-      end
+      return return_position(success: false) if move_command?(command) && !move(command)
 
-      if action_command?(command)
-        case command
-        when 'G'
-          grabbed = grab
-          return grabbed unless grabbed[:success]
+      next unless action_command?(command)
 
-        when 'D'
-          dropped = drop
-          return dropped unless dropped[:success]
+      case command
+      when 'G'
+        grabbed = grab
+        return grabbed unless grabbed[:success]
 
-        end
+      when 'D'
+        dropped = drop
+        return dropped unless dropped[:success]
+
       end
     end
 
@@ -114,5 +112,4 @@ class Robot < ApplicationRecord
   def ensure_one_robot
     errors.add(:robot, 'already present') if Robot.present?
   end
-
 end

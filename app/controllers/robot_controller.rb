@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class RobotController < ApplicationController
   before_action :load_robot
 

@@ -13,11 +13,11 @@ class Position < ApplicationRecord
   validate :ensure_in_boundary
   validate :ensure_not_taken
 
-
-
   def self.positions_taken
     Position.all.filter_map do |position|
-      position.to_coordinates unless position.positionable_type == 'Robot' || position.positionable_type.constantize.find(position.positionable_id).grabbed?
+      unless position.positionable_type == 'Robot' || position.positionable_type.constantize.find(position.positionable_id).grabbed?
+        position.to_coordinates
+      end
     end
   end
 

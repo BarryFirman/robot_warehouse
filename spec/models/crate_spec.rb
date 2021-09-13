@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'rails_helper'
 
 RSpec.describe Crate, type: :model do
@@ -12,7 +14,6 @@ RSpec.describe Crate, type: :model do
 
   it { should validate_presence_of(:position) }
   it { should have_one(:position) }
-
 
   describe '.crate_coordinates' do
     it 'should return the position as coordinates' do

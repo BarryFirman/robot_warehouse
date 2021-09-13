@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 FactoryBot.define do
   factory :robot_position, class: 'Position' do
     current_position { '10,10' }
